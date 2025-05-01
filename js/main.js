@@ -123,6 +123,81 @@ const teamHistory = {
     // 其他聯盟球隊歷史
 };
 
+// 歷史紀錄資料
+const historicalRecords = {
+    team: {
+        cpbl: [
+            { type: '單季最多勝場', team: '兄弟象', value: '82勝', year: '1994' },
+            { type: '單季最長連勝', team: '統一獅', value: '17連勝', year: '2006' },
+            { type: '單場最多得分', team: '兄弟象', value: '30分', year: '1999' }
+        ],
+        npb: [
+            { type: '單季最多勝場', team: '巨人隊', value: '93勝', year: '1965' },
+            { type: '連續奪冠次數', team: '巨人隊', value: '9連霸', year: '1965-1973' }
+        ],
+        // 其他聯盟記錄...
+    },
+    batting: {
+        cpbl: [
+            { type: '單季打擊率', player: '王柏融', team: '富邦悍將', value: '.407', year: '2017' },
+            { type: '單季全壘打', player: '林智勝', team: '兄弟象', value: '39支', year: '2012' }
+        ],
+        npb: [
+            { type: '單季安打數', player: '鈴木一朗', team: 'オリックス', value: '210支', year: '1994' },
+            { type: '單季打擊率', player: '落合博滿', team: '中日龍', value: '.367', year: '1985' }
+        ],
+        // 其他聯盟記錄...
+    },
+    pitching: {
+        cpbl: [
+            { type: '單季勝場', player: '江泰權', team: '兄弟象', value: '22勝', year: '1994' },
+            { type: '單季完投', player: '黃俊中', team: '統一獅', value: '15場', year: '1995' }
+        ],
+        npb: [
+            { type: '單季勝場', player: '稻尾和久', team: '西鐵獅', value: '42勝', year: '1982' },
+            { type: '連續無失分局', player: '杉下茂', team: '養樂多燕子', value: '52.2局', year: '1957' }
+        ],
+        // 其他聯盟記錄...
+    }
+};
+
+// 個人獎項資料
+const awards = {
+    cpbl: {
+        2024: [
+            { award: '年度MVP', winner: '林智勝', team: '中信兄弟', stats: '打擊率.355、39轟、125打點' },
+            { award: '投手王', winner: '江少慶', team: '富邦悍將', stats: '19勝4敗、防禦率2.45' }
+        ],
+        // 其他年份...
+    },
+    // 其他聯盟...
+};
+
+// 季後賽資料
+const playoffData = {
+    cpbl: {
+        2024: {
+            rounds: [
+                {
+                    name: '總冠軍賽',
+                    series: [
+                        {
+                            homeTeam: '中信兄弟',
+                            awayTeam: '樂天桃猿',
+                            score: '4-2',
+                            games: [
+                                { date: '2024-10-12', home: '中信兄弟', away: '樂天桃猿', score: '5-3' }
+                                // 其他比賽...
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    },
+    // 其他聯盟...
+};
+
 // 初始化頁面
 document.addEventListener('DOMContentLoaded', () => {
     initializeLeagueContent('cpbl');
@@ -132,6 +207,9 @@ document.addEventListener('DOMContentLoaded', () => {
     initializeSchedule();
     initializePlayerStats();
     initializeTeamHistory();
+    initializeRecords();
+    initializeAwards();
+    initializePlayoffs();
 });
 
 // 初始化聯盟內容
@@ -316,6 +394,160 @@ function initializeTeamHistory() {
     });
 
     accordion.innerHTML = accordionHTML;
+}
+
+// 初始化歷史紀錄
+function initializeRecords() {
+    const tables = {
+        team: document.getElementById('team-records-body'),
+        batting: document.getElementById('batting-records-body'),
+        pitching: document.getElementById('pitching-records-body')
+    };
+
+    Object.entries(historicalRecords).forEach(([category, leagues]) => {
+        const table = tables[category];
+        if (!table) return;
+
+        Object.entries(leagues).forEach(([league, records]) => {
+            records.forEach(record => {
+                const row = document.createElement('tr');
+                if (category === 'team') {
+                    row.innerHTML = `
+                        <td>${record.type}</td>
+                        <td>${getLeagueName(league)}</td>
+                        <td>${record.team}</td>
+                        <td class="record-value">${record.value}</td>
+                        <td class="record-year">${record.year}</td>
+                    `;
+                } else {
+                    row.innerHTML = `
+                        <td>${record.type}</td>
+                        <td>${getLeagueName(league)}</td>
+                        <td>${record.player}</td>
+                        <td>${record.team}</td>
+                        <td class="record-value">${record.value}</td>
+                        <td class="record-year">${record.year}</td>
+                    `;
+                }
+                table.appendChild(row);
+            });
+        });
+    });
+
+    // 初始化 DataTables
+    ['team-records-table', 'batting-records-table', 'pitching-records-table'].forEach(tableId => {
+        $(`#${tableId}`).DataTable({
+            language: {
+                url: 'https://cdn.datatables.net/plug-ins/1.13.6/i18n/zh-HANT.json'
+            },
+            order: [[1, 'asc'], [0, 'asc']]
+        });
+    });
+}
+
+// 初始化獎項資料
+function initializeAwards() {
+    const yearSelect = document.getElementById('award-year');
+    const leagueSelect = document.getElementById('award-league');
+    const tbody = document.getElementById('awards-body');
+
+    function updateAwards() {
+        const year = yearSelect.value;
+        const league = leagueSelect.value;
+        
+        if (!awards[league] || !awards[league][year]) {
+            tbody.innerHTML = '<tr><td colspan="4" class="text-center">無資料</td></tr>';
+            return;
+        }
+
+        tbody.innerHTML = awards[league][year]
+            .map(award => `
+                <tr>
+                    <td>${award.award}</td>
+                    <td class="award-winner">${award.winner}</td>
+                    <td>${award.team}</td>
+                    <td>${award.stats}</td>
+                </tr>
+            `)
+            .join('');
+    }
+
+    yearSelect.addEventListener('change', updateAwards);
+    leagueSelect.addEventListener('change', updateAwards);
+    updateAwards();
+}
+
+// 初始化季後賽資料
+function initializePlayoffs() {
+    const yearSelect = document.getElementById('playoff-year');
+    const leagueSelect = document.getElementById('playoff-league');
+    const bracketDiv = document.getElementById('playoff-bracket');
+    const gamesBody = document.getElementById('playoff-games-body');
+
+    function updatePlayoffs() {
+        const year = yearSelect.value;
+        const league = leagueSelect.value;
+
+        if (!playoffData[league] || !playoffData[league][year]) {
+            bracketDiv.innerHTML = '<p class="text-center">無資料</p>';
+            gamesBody.innerHTML = '<tr><td colspan="7" class="text-center">無資料</td></tr>';
+            return;
+        }
+
+        // 更新季後賽對戰圖
+        const rounds = playoffData[league][year].rounds;
+        bracketDiv.innerHTML = rounds
+            .map(round => `
+                <div class="playoff-round">
+                    <h4>${round.name}</h4>
+                    ${round.series.map(series => `
+                        <div class="playoff-matchup">
+                            <div class="playoff-team ${series.score.startsWith('4') ? 'playoff-winner' : ''}">${series.homeTeam}</div>
+                            <div class="playoff-team ${series.score.endsWith('4') ? 'playoff-winner' : ''}">${series.awayTeam}</div>
+                            <div class="playoff-series-status">${series.score}</div>
+                        </div>
+                    `).join('')}
+                </div>
+            `)
+            .join('');
+
+        // 更新比賽列表
+        const allGames = rounds.flatMap(round => 
+            round.series.flatMap(series => 
+                series.games.map(game => ({
+                    ...game,
+                    round: round.name
+                }))
+            )
+        );
+
+        gamesBody.innerHTML = allGames
+            .map(game => `
+                <tr>
+                    <td>${game.date}</td>
+                    <td>${game.round}</td>
+                    <td>${game.home}</td>
+                    <td>${game.score}</td>
+                    <td>${game.away}</td>
+                    <td>${game.stadium || '-'}</td>
+                    <td>
+                        <button class="btn btn-sm btn-primary" onclick="showGameDetails('${game.date}', '${game.home}', '${game.away}')">
+                            詳細
+                        </button>
+                    </td>
+                </tr>
+            `)
+            .join('');
+    }
+
+    yearSelect.addEventListener('change', updatePlayoffs);
+    leagueSelect.addEventListener('change', updatePlayoffs);
+    updatePlayoffs();
+}
+
+// 顯示比賽詳細資訊
+function showGameDetails(date, home, away) {
+    alert(`${date} ${home} vs ${away}\n詳細資訊功能開發中`);
 }
 
 // 輔助函數：取得聯盟名稱

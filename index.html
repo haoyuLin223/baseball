@@ -35,6 +35,9 @@
                             <li><a class="dropdown-item" href="#mlb">美國職棒</a></li>
                         </ul>
                     </li>
+                    <li class="nav-item"><a class="nav-link" href="#records">歷史紀錄</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#awards">個人獎項</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#playoffs">季後賽</a></li>
                 </ul>
             </div>
         </div>
@@ -135,6 +138,152 @@
             <div class="row">
                 <div class="col-12">
                     <div class="accordion" id="teamHistoryAccordion"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 歷史紀錄區塊 -->
+        <section id="records" class="mb-5">
+            <h2>聯盟歷史紀錄</h2>
+            <div class="row">
+                <div class="col-12">
+                    <ul class="nav nav-tabs" id="recordsTab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" data-bs-toggle="tab" href="#team-records">球隊紀錄</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-bs-toggle="tab" href="#batting-records">打擊紀錄</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-bs-toggle="tab" href="#pitching-records">投手紀錄</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content mt-3" id="recordsTabContent">
+                        <div class="tab-pane fade show active" id="team-records">
+                            <div class="table-responsive">
+                                <table class="table table-striped" id="team-records-table">
+                                    <thead>
+                                        <tr>
+                                            <th>紀錄類型</th>
+                                            <th>聯盟</th>
+                                            <th>球隊</th>
+                                            <th>數據</th>
+                                            <th>年份</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="team-records-body"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="batting-records">
+                            <div class="table-responsive">
+                                <table class="table table-striped" id="batting-records-table">
+                                    <thead>
+                                        <tr>
+                                            <th>紀錄類型</th>
+                                            <th>聯盟</th>
+                                            <th>球員</th>
+                                            <th>球隊</th>
+                                            <th>數據</th>
+                                            <th>年份</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="batting-records-body"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="pitching-records">
+                            <div class="table-responsive">
+                                <table class="table table-striped" id="pitching-records-table">
+                                    <thead>
+                                        <tr>
+                                            <th>紀錄類型</th>
+                                            <th>聯盟</th>
+                                            <th>球員</th>
+                                            <th>球隊</th>
+                                            <th>數據</th>
+                                            <th>年份</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="pitching-records-body"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 個人獎項區塊 -->
+        <section id="awards" class="mb-5">
+            <h2>年度個人獎項</h2>
+            <div class="row">
+                <div class="col-12">
+                    <div class="awards-filter mb-3">
+                        <select class="form-select d-inline-block w-auto me-2" id="award-year">
+                            <option value="2024">2024</option>
+                            <option value="2023">2023</option>
+                            <option value="2022">2022</option>
+                        </select>
+                        <select class="form-select d-inline-block w-auto" id="award-league">
+                            <option value="cpbl">中華職棒</option>
+                            <option value="npb">日本職棒</option>
+                            <option value="kbo">韓國職棒</option>
+                            <option value="mlb">美國職棒</option>
+                        </select>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-striped" id="awards-table">
+                            <thead>
+                                <tr>
+                                    <th>獎項</th>
+                                    <th>得主</th>
+                                    <th>球隊</th>
+                                    <th>主要成績</th>
+                                </tr>
+                            </thead>
+                            <tbody id="awards-body"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 季後賽區塊 -->
+        <section id="playoffs" class="mb-5">
+            <h2>季後賽資訊</h2>
+            <div class="row">
+                <div class="col-12">
+                    <div class="playoffs-filter mb-3">
+                        <select class="form-select d-inline-block w-auto me-2" id="playoff-year">
+                            <option value="2024">2024</option>
+                            <option value="2023">2023</option>
+                            <option value="2022">2022</option>
+                        </select>
+                        <select class="form-select d-inline-block w-auto" id="playoff-league">
+                            <option value="cpbl">中華職棒</option>
+                            <option value="npb">日本職棒</option>
+                            <option value="kbo">韓國職棒</option>
+                            <option value="mlb">美國職棒</option>
+                        </select>
+                    </div>
+                    <div id="playoff-bracket" class="playoff-bracket mb-4"></div>
+                    <div class="table-responsive">
+                        <table class="table table-striped" id="playoff-games-table">
+                            <thead>
+                                <tr>
+                                    <th>日期</th>
+                                    <th>輪次</th>
+                                    <th>主隊</th>
+                                    <th>比分</th>
+                                    <th>客隊</th>
+                                    <th>球場</th>
+                                    <th>詳細</th>
+                                </tr>
+                            </thead>
+                            <tbody id="playoff-games-body"></tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </section>

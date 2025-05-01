@@ -109,6 +109,65 @@
     margin-right: 10px;
 }
 
+/* 歷史紀錄區塊樣式 */
+.records-section {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* 獎項區塊樣式 */
+.awards-filter {
+    background-color: #f8f9fa;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.award-winner {
+    color: #ffc107;
+    font-weight: bold;
+}
+
+/* 季後賽區塊樣式 */
+.playoff-bracket {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.playoff-round {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 30px;
+}
+
+.playoff-matchup {
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    padding: 10px;
+    margin: 5px;
+    width: 200px;
+}
+
+.playoff-team {
+    padding: 5px;
+    margin: 2px 0;
+}
+
+.playoff-winner {
+    background-color: #28a745;
+    color: white;
+    border-radius: 4px;
+}
+
+.playoff-series-status {
+    font-size: 0.9em;
+    color: #6c757d;
+}
+
 /* 響應式設計調整 */
 @media (max-width: 768px) {
     .table-responsive {
@@ -122,4 +181,33 @@
     h2 {
         font-size: 1.5rem;
     }
+    
+    .playoff-bracket {
+        overflow-x: auto;
+    }
+    
+    .playoff-matchup {
+        width: 150px;
+    }
+    
+    .awards-filter select {
+        width: 100% !important;
+        margin-bottom: 10px;
+    }
+}
+
+/* 表格樣式優化 */
+.table-record-highlight {
+    background-color: #fff3cd;
+}
+
+.record-year {
+    font-weight: bold;
+    color: #0d6efd;
+}
+
+.record-value {
+    font-size: 1.1em;
+    font-weight: bold;
+    color: #198754;
 }
