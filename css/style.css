@@ -1,0 +1,125 @@
+.league-section {
+    padding: 20px;
+    border-radius: 8px;
+    background-color: #f8f9fa;
+    margin-bottom: 30px;
+}
+
+.league-section h2 {
+    color: #333;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #007bff;
+    padding-bottom: 10px;
+}
+
+.team-card {
+    margin-bottom: 20px;
+    transition: transform 0.3s ease;
+}
+
+.team-card:hover {
+    transform: translateY(-5px);
+}
+
+.standings-table {
+    margin-top: 20px;
+}
+
+.news-item {
+    padding: 15px;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.news-item:last-child {
+    border-bottom: none;
+}
+
+.loading {
+    text-align: center;
+    padding: 20px;
+}
+
+/* 新增的樣式 */
+#schedule-table {
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+#schedule-table th {
+    background-color: #f8f9fa;
+}
+
+.live-game {
+    color: #dc3545;
+    font-weight: bold;
+}
+
+.finished-game {
+    color: #6c757d;
+}
+
+.upcoming-game {
+    color: #28a745;
+}
+
+.player-stats-container {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.nav-tabs .nav-link {
+    color: #495057;
+}
+
+.nav-tabs .nav-link.active {
+    color: #007bff;
+    font-weight: bold;
+}
+
+.team-history-card {
+    margin-bottom: 15px;
+    border: none;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.team-history-card .card-header {
+    background-color: #f8f9fa;
+    border-bottom: none;
+}
+
+.achievement-list {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.achievement-list li {
+    padding: 8px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.achievement-list li:last-child {
+    border-bottom: none;
+}
+
+.achievement-year {
+    font-weight: bold;
+    color: #007bff;
+    margin-right: 10px;
+}
+
+/* 響應式設計調整 */
+@media (max-width: 768px) {
+    .table-responsive {
+        font-size: 14px;
+    }
+    
+    .achievement-list {
+        font-size: 14px;
+    }
+    
+    h2 {
+        font-size: 1.5rem;
+    }
+}

@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>職業棒球資訊網</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- DataTables CSS -->
+    <link href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">職業棒球資訊網</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link" href="#schedule">賽程表</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#standings">戰績榜</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#player-stats">球員數據</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#team-history">球隊歷史</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="leagueDropdown" role="button" data-bs-toggle="dropdown">
+                            聯盟
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#cpbl">中華職棒</a></li>
+                            <li><a class="dropdown-item" href="#npb">日本職棒</a></li>
+                            <li><a class="dropdown-item" href="#kbo">韓國職棒</a></li>
+                            <li><a class="dropdown-item" href="#mlb">美國職棒</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <!-- 賽程表區塊 -->
+        <section id="schedule" class="mb-5">
+            <h2>今日賽程</h2>
+            <div class="row">
+                <div class="col-12">
+                    <div class="table-responsive">
+                        <table class="table table-hover" id="schedule-table">
+                            <thead>
+                                <tr>
+                                    <th>時間</th>
+                                    <th>聯盟</th>
+                                    <th>主隊</th>
+                                    <th>比分</th>
+                                    <th>客隊</th>
+                                    <th>球場</th>
+                                    <th>狀態</th>
+                                </tr>
+                            </thead>
+                            <tbody id="schedule-body"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 戰績榜區塊 -->
+        <section id="standings" class="mb-5">
+            <h2>各聯盟戰績</h2>
+            <div class="row" id="all-standings"></div>
+        </section>
+
+        <!-- 球員數據區塊 -->
+        <section id="player-stats" class="mb-5">
+            <h2>球員數據排行</h2>
+            <div class="row">
+                <div class="col-12">
+                    <ul class="nav nav-tabs" id="statsTab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" data-bs-toggle="tab" href="#batting">打擊成績</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-bs-toggle="tab" href="#pitching">投手成績</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content mt-3" id="statsTabContent">
+                        <div class="tab-pane fade show active" id="batting">
+                            <div class="table-responsive">
+                                <table class="table table-striped" id="batting-table">
+                                    <thead>
+                                        <tr>
+                                            <th>球員</th>
+                                            <th>隊伍</th>
+                                            <th>打擊率</th>
+                                            <th>全壘打</th>
+                                            <th>打點</th>
+                                            <th>安打</th>
+                                            <th>得分</th>
+                                            <th>盜壘</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="batting-stats"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="pitching">
+                            <div class="table-responsive">
+                                <table class="table table-striped" id="pitching-table">
+                                    <thead>
+                                        <tr>
+                                            <th>球員</th>
+                                            <th>隊伍</th>
+                                            <th>防禦率</th>
+                                            <th>勝場</th>
+                                            <th>敗場</th>
+                                            <th>中繼點</th>
+                                            <th>救援成功</th>
+                                            <th>三振數</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="pitching-stats"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 球隊歷史區塊 -->
+        <section id="team-history" class="mb-5">
+            <h2>球隊歷史成就</h2>
+            <div class="row">
+                <div class="col-12">
+                    <div class="accordion" id="teamHistoryAccordion"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 各聯盟區塊 -->
+        <div id="cpbl" class="league-section mb-5">
+            <h2>中華職棒</h2>
+            <div class="row" id="cpbl-content"></div>
+        </div>
+
+        <div id="npb" class="league-section mb-5">
+            <h2>日本職棒</h2>
+            <div class="row" id="npb-content"></div>
+        </div>
+
+        <div id="kbo" class="league-section mb-5">
+            <h2>韓國職棒</h2>
+            <div class="row" id="kbo-content"></div>
+        </div>
+
+        <div id="mlb" class="league-section mb-5">
+            <h2>美國職棒</h2>
+            <div class="row" id="mlb-content"></div>
+        </div>
+    </div>
+
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <!-- DataTables -->
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+    <!-- Custom JS -->
+    <script src="js/main.js"></script>
+</body>
+</html>
